@@ -1,5 +1,8 @@
 # POC-T: *Pentest Over Concurrent Toolkit* 
 
+## Referer
+(http://www.freebuf.com/sectool/176562.html)[http://www.freebuf.com/sectool/176562.html]
+
 ## 使用
 - `poc-t.py --batch -iF 1.txt` 使用fuzz脚本
 - `poc-t.py -eT -t 20 -s xx -iF 1w.txt`
