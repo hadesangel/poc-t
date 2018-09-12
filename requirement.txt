@@ -1,5 +1,2 @@
 requests
-gevent
-shodan
-google-api-python-client
 Beautifulsoup4
