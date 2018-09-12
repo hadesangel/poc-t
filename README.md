@@ -12,4 +12,4 @@
 - craw 爬取链接中的相关地址
 - vulscan 检测sql注入漏洞
 - portscan 端口扫描，检测弱口令服务
-  
+- findsub 查找子域名
