@@ -5,7 +5,6 @@ from bs4 import BeautifulSoup
 import urlparse
 import json
 from time import sleep
-from multiprocessing import Pool
 
 headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
@@ -4262,41 +4261,40 @@ def poc(url):
         url = url + "/"
     
     hostname = get_domain_root(url)
-    domain = [hostname]
-    pool = Pool()
+    domain = hostname
     try:
-        baidu = pool.map(baiduApi,domain)
+        baidu = baiduApi(domain)
     except:
         pass
     try:
-        bing = pool.map(bingApi,domain)
+        bing = bingApi(domain)
     except:
         pass
     try:
-        findSubDomains = pool.map(findSubDomainsAPI,domain)
+        findSubDomains = findSubDomainsAPI(domain)
     except:
         pass
     try:
-        hackertarget = pool.map(hackertargetApi,domain)
+        hackertarget = hackertargetApi(domain)
     except:
         pass
     try:
-        virusTotal = pool.map(virusTotalApi,domain)
+        virusTotal = virusTotalApi(domain)
     except:
         pass
     try:    
-        threadCrowd = pool.map(threadCrowdApi,domain)
+        threadCrowd = threadCrowdApi(domain)
     except:
         pass
     try:
-        threatminer = pool.map(threatminerApi,domain)
+        threatminer = threatminerApi(domain)
     except:
         pass
     try:
-        cesuyun = pool.map(cesuyunAPI,domain)
+        cesuyun = cesuyunAPI(domain)
     except:
         pass
-    allsubdomains = baidu[0] | bing[0] | findSubDomains[0] | hackertarget[0] | virusTotal[0] | threatminer[0] | threadCrowd[0] | cesuyun[0]
+    allsubdomains = baidu | bing | findSubDomains | hackertarget | virusTotal | threatminer | threadCrowd | cesuyun
     if allsubdomains:
         return allsubdomains
 

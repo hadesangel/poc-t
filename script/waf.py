@@ -72,6 +72,8 @@ def identify(header,html):
     return True
 
 def poc(url):
+    if "." not in url:
+        return False
     if '://' not in url:
         url = 'http://' + url
     if not url.endswith('/'):
@@ -85,7 +87,9 @@ def poc(url):
         if r.status_code == 200:
             f = identify(r.headers,r.text)
             if f:
-                return r.url
+                parse = urlparse.urlparse(r.url)
+                new_url = "%s://%s/" % (parse.scheme,parse.netloc)
+                return new_url
             else:
                 return False
         else:
