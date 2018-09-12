@@ -80,12 +80,13 @@ def run():
                 break
 
     elif conf.ENGINE is ENGINE_MODE_STATUS.GEVENT:
-        from gevent import monkey
-        monkey.patch_all()
-        import gevent
-        while th.queue.qsize() > 0 and th.is_continue:
-            gevent.joinall([gevent.spawn(scan) for i in xrange(0, th.threads_num) if
-                            th.queue.qsize() > 0])
+        # from gevent import monkey
+        # monkey.patch_all()
+        # import gevent
+        # while th.queue.qsize() > 0 and th.is_continue:
+        #     gevent.joinall([gevent.spawn(scan) for i in xrange(0, th.threads_num) if
+        #                     th.queue.qsize() > 0])
+        pass
 
     dataToStdout('\n')
 
