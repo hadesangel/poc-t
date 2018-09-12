@@ -4238,6 +4238,23 @@ def threatminerApi(searchQuery):
     except:
         return set()
 
+def cesuyunAPI(searchQuery):
+    api = 'http://ce.baidu.com/index/getRelatedSites?site_address='
+    headers = {'User-Agent':'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36'}
+    r = set()
+    try:
+        res = requests.get(api + searchQuery, headers=headers, timeout=10).json()
+
+        for i in res['data']:
+            try:
+                r.add(i["domain"])
+            except:
+                pass
+
+    except Exception as e:
+        pass
+    return r
+
 def poc(url):
     if '://' not in url:
         url = 'http://' + url
@@ -4275,7 +4292,11 @@ def poc(url):
         threatminer = pool.map(threatminerApi,domain)
     except:
         pass
-    allsubdomains = baidu[0] | bing[0] | findSubDomains[0] | hackertarget[0] | virusTotal[0] | threatminer[0] | threadCrowd[0]
+    try:
+        cesuyun = pool.map(cesuyunAPI,domain)
+    except:
+        pass
+    allsubdomains = baidu[0] | bing[0] | findSubDomains[0] | hackertarget[0] | virusTotal[0] | threatminer[0] | threadCrowd[0] | cesuyun[0]
     if allsubdomains:
         return allsubdomains
 
